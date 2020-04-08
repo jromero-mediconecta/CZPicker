@@ -184,8 +184,12 @@ typedef void (^CZDismissCompletionCallback)(void);
     NSInteger n = [self.dataSource numberOfRowsInPickerView:self];
     CGRect tableRect;
     float heightOffset = CZP_HEADER_HEIGHT + CZP_FOOTER_HEIGHT;
+    float factorN = 44.0;
+    if (_multiLineLabel) {
+        factorN = 55.0;
+    }
     if(n > 0){
-        float height = n * 44.0;
+        float height = n * factorN;
         height = height > newRect.size.height - heightOffset ? newRect.size.height -heightOffset : height;
         tableRect = CGRectMake(0, 44.0, newRect.size.width, height);
     } else {
@@ -342,6 +346,12 @@ typedef void (^CZDismissCompletionCallback)(void);
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
+    
+    if(_multiLineLabel) {
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 2;
+    }
+    
     if([self.dataSource respondsToSelector:@selector(czpickerView:titleForRow:)] && [self.dataSource respondsToSelector:@selector(czpickerView:imageForRow:)]){
         cell.textLabel.text = [self.dataSource czpickerView:self titleForRow:indexPath.row];
         cell.imageView.image = [self.dataSource czpickerView:self imageForRow:indexPath.row];

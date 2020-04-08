@@ -145,4 +145,6 @@
 /** width of picker */
 @property CGFloat pickerWidth;
 
+@property BOOL multiLineLabel;
+
 @end
